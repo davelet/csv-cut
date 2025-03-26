@@ -1,0 +1,10 @@
+[package]
+name = "csv-cut"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+iced = "0.12"
+csv = "1.2"
+rfd = "0.11"
+humansize = "2.1"
