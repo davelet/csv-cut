@@ -22,6 +22,7 @@ struct CsvCutter {
     total_rows: Option<usize>,
     columns: Vec<(String, bool)>,
     error_message: Option<String>,
+    saved_file_path: Option<String>, // 新增状态变量
 }
 
 #[derive(Debug, Clone)]
@@ -90,6 +91,7 @@ impl Application for CsvCutter {
                     if let Some(output_path) =
                         FileDialog::new().add_filter("CSV", &["csv"]).save_file()
                     {
+                        let path = output_path.clone();
                         if let Ok(input_file) = std::fs::File::open(input_path) {
                             let mut reader = csv::Reader::from_reader(input_file);
                             if let Ok(output_file) = std::fs::File::create(output_path) {
@@ -152,6 +154,7 @@ impl Application for CsvCutter {
                         } else {
                             self.error_message = Some("Failed to open input file".to_string());
                         }
+                        self.saved_file_path = Some((*path.to_string_lossy()).to_string());
                     }
                 }
                 Command::none()
@@ -207,7 +210,7 @@ impl Application for CsvCutter {
                     .height(Length::Fill)
                     .width(Length::Fill)
                     .style(|_theme: &iced::Theme| container::Appearance {
-                        background: Some(Background::Color(Color::from_rgb8(0xFF, 0xE4, 0xC4))), // Example color
+                        background: Some(Background::Color(Color::from_rgb8(0xFF, 0xE4, 0xC4))),
                         ..Default::default()
                     }),
             )
@@ -229,6 +232,9 @@ impl Application for CsvCutter {
             content = content.push(text(error).style(iced::theme::Text::Color(
                 iced::Color::from_rgb(1.0, 0.0, 0.0),
             )));
+        }
+        if let Some(saved_path) = &self.saved_file_path {
+            content = content.push(text(format!("保存路径: {}", saved_path)));
         }
 
         container(content)
