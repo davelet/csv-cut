@@ -31,6 +31,11 @@ cd csv-cut
 cargo run
 ```
 
+## 打包（Mac）
+```bash
+cargo bundle --release
+```
+
 ## 使用方法
 
 1. 点击"选择CSV文件"按钮，选择要处理的CSV文件

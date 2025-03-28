@@ -2,9 +2,20 @@
 name = "csv-cut"
 version = "0.1.0"
 edition = "2021"
+description = "CSV Cutter 是一个简单易用的CSV文件处理工具，它提供了图形用户界面，让你可以方便地选择和保留CSV文件中的特定列。"
 
 [dependencies]
 iced = "0.12"
 csv = "1.2"
 rfd = "0.11"
 humansize = "2.1"
+
+[package.metadata.bundle]
+identifier = "csv.cutter.learn"
+name = "CSV Cutter"
+short_version_string = "0.1.0"
+bundle_identifier = "csv.cutter.learn.self.davelet"
+bundle_name = "CSV Cutter"
+application_category = "public.app-category.developer-tools"
+icon = ["assets/icon.icns"]
+resources = ["assets"]
